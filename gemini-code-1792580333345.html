@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Documentário - Pablo Picasso</title>
+  <style>
+    body {
+      font-family: 'Georgia', serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background-color: #1a1a1a;
+      color: #333;
+    }
+    .container {
+      background: #fdfbf7;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      text-align: center;
+      max-width: 700px;
+      width: 90%;
+      box-sizing: border-box;
+    }
+    .picasso-signature {
+      font-family: 'Brush Script MT', 'Cursive', sans-serif;
+      font-size: 42px;
+      margin: 0;
+      color: #111;
+      letter-spacing: 2px;
+    }
+    .subtitle {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 25px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    input {
+      width: 80%;
+      padding: 12px;
+      margin: 15px 0;
+      border: 2px solid #333;
+      border-radius: 6px;
+      text-align: center;
+      font-size: 18px;
+    }
+    button {
+      padding: 12px 25px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background-color: #555;
+    }
+    .hint {
+      font-size: 13px;
+      color: #777;
+      margin-top: 8px;
+      font-weight: bold;
+    }
+    #erro {
+      color: #c0392b;
+      margin-top: 10px;
+      display: none;
+      font-size: 14px;
+    }
+    .wiki-link {
+      display: block;
+      margin-top: 20px;
+      color: #0066cc;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .wiki-link:hover {
+      text-decoration: underline;
+    }
+    /* Estilos do Player do Documentário */
+    #documentario-section {
+      display: none;
+      margin-top: 25px;
+    }
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%; /* Proporção 16:9 */
+      height: 0;
+      overflow: hidden;
+      border-radius: 8px;
+      border: 2px solid #333;
+    }
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Assinatura estilizada de Picasso -->
+    <h1 class="picasso-signature">Pablo Picasso</h1>
+    <div class="subtitle">Vida, Cubismo e Genialidade</div>
+
+    <!-- Área do Formulário de Acesso -->
+    <div id="login-section">
+      <p>Insira a data de nascimento do artista para desbloquear o documentário (DDMMAAAA):</p>
+      
+      <input type="text" id="codigo" placeholder="Ex: 25101881" maxlength="8">
+      <br>
+      <button onclick="verificarCodigo()">Desbloquear Documentário</button>
+      
+      <div class="hint">by david</div>
+      <div id="erro">Data incorreta. Tente novamente!</div>
+
+      <a class="wiki-link" href="https://pt.wikipedia.org/wiki/Pablo_Picasso" target="_blank" rel="noopener noreferrer">
+        Ver Wikipédia Oficial de Picasso
+      </a>
+    </div>
+
+    <!-- Área onde surge o Documentário incorporado -->
+    <div id="documentario-section">
+      <h3>Documentário Liberado</h3>
+      <div class="video-container">
+        <!-- Substitua o link do src pela URL embed do documentário pretendido -->
+        <iframe 
+          src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
+          title="Documentário Pablo Picasso" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function verificarCodigo() {
+      // Data de nascimento: 25101881 (25/10/1881)
+      const codigoCorreto = "25101881";
+      const entrada = document.getElementById("codigo").value.trim();
+      const mensagemErro = document.getElementById("erro");
+      const loginSection = document.getElementById("login-section");
+      const documentarioSection = document.getElementById("documentario-section");
+
+      if (entrada === codigoCorreto) {
+        // Esconde o formulário de login e mostra o documentário
+        loginSection.style.display = "none";
+        documentarioSection.style.display = "block";
+      } else {
+        mensagemErro.style.display = "block";
+      }
+    }
+  </script>
+
+</body>
+</html>
