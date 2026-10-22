@@ -3,21 +3,17 @@
 <head>
   <meta charset="UTF-8">
   
-  <!-- ========================================== -->
-  <!-- META TAGS BÁSICAS & SEO                    -->
-  <!-- ========================================== -->
+  <!-- META TAGS BÁSICAS & SEO -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Documentário Inédito - Pablo Picasso</title>
-  <meta name="description" content="Descubra a vida, o cubismo e a genialidade de Pablo Picasso neste documentário interativo. Insira o ano de nascimento do mestre para desbloquear.">
-  <meta name="keywords" content="Pablo Picasso, documentário, arte, cubismo, pintor espanhol, biografia Picasso, história da arte">
+  <title>Conteúdo Exclusivo - Pablo Picasso</title>
+  <meta name="description" content="Descubra a vida, o cubismo e a genialidade de Pablo Picasso. Insira o ano de nascimento do mestre para desbloquear o conteúdo.">
+  <meta name="keywords" content="Pablo Picasso, arte, cubismo, pintor espanhol, biografia Picasso, história da arte">
   <meta name="author" content="David">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#1a1a1a">
 
-  <!-- ========================================== -->
-  <!-- OPEN GRAPH (Facebook, WhatsApp, LinkedIn)  -->
-  <!-- ========================================== -->
-  <meta property="og:title" content="Documentário Inédito - Pablo Picasso">
+  <!-- OPEN GRAPH (Facebook, WhatsApp, LinkedIn) -->
+  <meta property="og:title" content="Conteúdo Exclusivo - Pablo Picasso">
   <meta property="og:description" content="Descubra a vida, o cubismo e a genialidade de Pablo Picasso. Consegue desbloquear o acesso?">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://o-teu-link-do-github-pages.github.io/">
@@ -25,11 +21,9 @@
   <meta property="og:site_name" content="Projeto Picasso by David">
   <meta property="og:locale" content="pt_PT">
 
-  <!-- ========================================== -->
-  <!-- TWITTER CARDS (X/Twitter)                  -->
-  <!-- ========================================== -->
+  <!-- TWITTER CARDS (X/Twitter) -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Documentário Inédito - Pablo Picasso">
+  <meta name="twitter:title" content="Conteúdo Exclusivo - Pablo Picasso">
   <meta name="twitter:description" content="Descubra a vida, o cubismo e a genialidade de Pablo Picasso. Consegue desbloquear o acesso?">
   <meta name="twitter:image" content="https://o-teu-link-do-github-pages.github.io/imagem-de-destaque.jpg">
 
@@ -115,25 +109,17 @@
     .wiki-link:hover {
       text-decoration: underline;
     }
-    /* Estilos do Player do Documentário */
-    #documentario-section {
+    /* Estilos da secção da Tabela */
+    #conteudo-section {
       display: none;
       margin-top: 25px;
     }
-    .video-container {
-      position: relative;
-      padding-bottom: 56.25%; /* Proporção 16:9 */
-      height: 0;
-      overflow: hidden;
+    .imagem-tabela {
+      width: 100%;
+      height: auto;
       border-radius: 8px;
       border: 2px solid #333;
-    }
-    .video-container iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
   </style>
 </head>
@@ -146,11 +132,11 @@
 
     <!-- Área do Formulário de Acesso -->
     <div id="login-section">
-      <p>Insira o ano de nascimento do artista para desbloquear o documentário:</p>
+      <p>Insira o ano de nascimento do artista para desbloquear a tabela:</p>
       
       <input type="text" id="codigo" placeholder="Digite aqui o código" maxlength="4">
       <br>
-      <button onclick="verificarCodigo()">Desbloquear Documentário</button>
+      <button onclick="verificarCodigo()">Desbloquear Tabela</button>
       
       <div class="hint">by david</div>
       <div id="erro">Código incorreto. Tente novamente!</div>
@@ -160,34 +146,27 @@
       </a>
     </div>
 
-    <!-- Área onde surge o Documentário incorporado -->
-    <div id="documentario-section">
-      <h3>Documentário Liberado</h3>
-      <div class="video-container">
-        <iframe 
-          src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" 
-          title="Documentário Pablo Picasso" 
-          frameborder="0" 
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-          allowfullscreen>
-        </iframe>
-      </div>
+    <!-- Área onde surge a imagem da tabela -->
+    <div id="conteudo-section">
+      <h3>Tabela Liberada</h3>
+      <!-- A imagem é chamada aqui -->
+      <img src="tabela.png" alt="Tabela de Picasso" class="imagem-tabela">
     </div>
   </div>
 
   <script>
     function verificarCodigo() {
-      // O código agora é apenas o ano de nascimento: 1881
+      // O código é o ano de nascimento: 1881
       const codigoCorreto = "1881";
       const entrada = document.getElementById("codigo").value.trim();
       const mensagemErro = document.getElementById("erro");
       const loginSection = document.getElementById("login-section");
-      const documentarioSection = document.getElementById("documentario-section");
+      const conteudoSection = document.getElementById("conteudo-section");
 
       if (entrada === codigoCorreto) {
-        // Esconde o formulário de login e mostra o documentário
+        // Esconde o formulário de login e mostra a imagem
         loginSection.style.display = "none";
-        documentarioSection.style.display = "block";
+        conteudoSection.style.display = "block";
       } else {
         mensagemErro.style.display = "block";
       }
