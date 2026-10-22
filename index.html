@@ -5,10 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Conteúdo Exclusivo - Pablo Picasso</title>
   
-  <!-- Voltou a usar favicon.ico -->
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 
-  <!-- Carregar a biblioteca do Supabase diretamente no HTML -->
+  <!-- Carregar o Supabase apenas UMA vez -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
@@ -55,9 +54,12 @@
   </div>
 
   <script>
-    const supabaseUrl = 'https://uionzjxdyxgosvtepcmn.supabase.co/rest/v1/'; 
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVpb256anhkeXhnb3N2dGVwY21uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI1NzQ0OTksImV4cCI6MjEwODE1MDQ5OX0.GvUGoVlhrFC3hwDBLpVUoWjg62QxRdq8uJnjvSinors';
-    const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+    // Configuração do Supabase
+    const SUPABASE_URL = 'https://uionzjxdyxgosvtepcmn.supabase.co/rest/v1/'; 
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVpb256anhkeXhnb3N2dGVwY21uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI1NzQ0OTksImV4cCI6MjEwODE1MDQ5OX0.GvUGoVlhrFC3hwDBLpVUoWjg62QxRdq8uJnjvSinors';
+    
+    // Inicialização da instância do cliente
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
     async function verificarCodigo() {
       const entrada = document.getElementById("codigo").value.trim();
@@ -71,7 +73,8 @@
       botao.innerText = "A verificar...";
 
       try {
-        const { data: configData, error: configError } = await supabase
+        // Consulta o código de acesso na tabela 'configuracoes'
+        const { data: configData, error: configError } = await supabaseClient
           .from('configuracoes')
           .select('valor')
           .eq('chave', 'codigo_acesso')
@@ -82,7 +85,8 @@
         const codigoCorreto = configData.valor;
         const acertou = (entrada === codigoCorreto);
 
-        await supabase
+        // Regista a tentativa de acesso
+        await supabaseClient
           .from('tentativas_acesso')
           .insert([
             { 
@@ -100,8 +104,8 @@
         }
 
       } catch (error) {
-        console.error("Erro:", error);
-        alert("Ocorreu um erro ao verificar o código. Tenta novamente.");
+        console.error("Erro ao verificar o código:", error);
+        alert("Ocorreu um erro ao ligar ao servidor. Verifica a ligação ou as chaves do Supabase.");
       } finally {
         botao.disabled = false;
         botao.innerText = "Desbloquear Conteúdo";
