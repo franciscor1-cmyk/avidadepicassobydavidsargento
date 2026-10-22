@@ -2,173 +2,111 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  
-  <!-- META TAGS BÁSICAS & SEO -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Conteúdo Exclusivo - Pablo Picasso</title>
-  <meta name="description" content="Descubra a vida, o cubismo e a genialidade de Pablo Picasso. Insira o ano de nascimento do mestre para desbloquear o conteúdo.">
-  <meta name="keywords" content="Pablo Picasso, arte, cubismo, pintor espanhol, biografia Picasso, história da arte">
-  <meta name="author" content="David">
-  <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#1a1a1a">
-
-  <!-- OPEN GRAPH (Facebook, WhatsApp, LinkedIn) -->
-  <meta property="og:title" content="Conteúdo Exclusivo - Pablo Picasso">
-  <meta property="og:description" content="Descubra a vida, o cubismo e a genialidade de Pablo Picasso. Consegue desbloquear o acesso?">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://o-teu-link-do-github-pages.github.io/">
-  <meta property="og:image" content="https://o-teu-link-do-github-pages.github.io/imagem-de-destaque.jpg">
-  <meta property="og:site_name" content="Projeto Picasso by David">
-  <meta property="og:locale" content="pt_PT">
-
-  <!-- TWITTER CARDS (X/Twitter) -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Conteúdo Exclusivo - Pablo Picasso">
-  <meta name="twitter:description" content="Descubra a vida, o cubismo e a genialidade de Pablo Picasso. Consegue desbloquear o acesso?">
-  <meta name="twitter:image" content="https://o-teu-link-do-github-pages.github.io/imagem-de-destaque.jpg">
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png">
   
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
   <style>
-    body {
-      font-family: 'Georgia', serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      margin: 0;
-      background-color: #1a1a1a;
-      color: #333;
-    }
-    .container {
-      background: #fdfbf7;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-      text-align: center;
-      max-width: 700px;
-      width: 90%;
-      box-sizing: border-box;
-    }
-    .picasso-signature {
-      font-family: 'Brush Script MT', 'Cursive', sans-serif;
-      font-size: 42px;
-      margin: 0;
-      color: #111;
-      letter-spacing: 2px;
-    }
-    .subtitle {
-      font-size: 14px;
-      color: #666;
-      margin-bottom: 25px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    input {
-      width: 80%;
-      padding: 12px;
-      margin: 15px 0;
-      border: 2px solid #333;
-      border-radius: 6px;
-      text-align: center;
-      font-size: 18px;
-    }
-    button {
-      padding: 12px 25px;
-      background-color: #333;
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    button:hover {
-      background-color: #555;
-    }
-    .hint {
-      font-size: 13px;
-      color: #777;
-      margin-top: 8px;
-      font-weight: bold;
-    }
-    #erro {
-      color: #c0392b;
-      margin-top: 10px;
-      display: none;
-      font-size: 14px;
-    }
-    .wiki-link {
-      display: block;
-      margin-top: 20px;
-      color: #0066cc;
-      text-decoration: none;
-      font-size: 14px;
-    }
-    .wiki-link:hover {
-      text-decoration: underline;
-    }
-    /* Estilos da secção da Tabela */
-    #conteudo-section {
-      display: none;
-      margin-top: 25px;
-    }
-    .imagem-tabela {
-      width: 100%;
-      height: auto;
-      border-radius: 8px;
-      border: 2px solid #333;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    }
+    body { font-family: 'Georgia', serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; background-color: #1a1a1a; color: #333; }
+    .container { background: #fdfbf7; padding: 30px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.4); text-align: center; max-width: 700px; width: 90%; box-sizing: border-box; }
+    .picasso-signature { font-family: 'Brush Script MT', 'Cursive', sans-serif; font-size: 42px; margin: 0; color: #111; letter-spacing: 2px; }
+    .subtitle { font-size: 14px; color: #666; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; }
+    input { width: 80%; padding: 12px; margin: 15px 0; border: 2px solid #333; border-radius: 6px; text-align: center; font-size: 18px; }
+    button { padding: 12px 25px; background-color: #333; color: #fff; border: none; border-radius: 6px; font-size: 16px; cursor: pointer; transition: background 0.3s; }
+    button:hover { background-color: #555; }
+    button:disabled { background-color: #999; cursor: not-allowed; }
+    .hint { font-size: 13px; color: #777; margin-top: 8px; font-weight: bold; }
+    #erro { color: #c0392b; margin-top: 10px; display: none; font-size: 14px; }
+    .wiki-link { display: block; margin-top: 20px; color: #0066cc; text-decoration: none; font-size: 14px; }
+    #conteudo-section { display: none; margin-top: 25px; }
+    .imagem-tabela { width: 100%; height: auto; border-radius: 8px; border: 2px solid #333; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <!-- Assinatura estilizada de Picasso -->
     <h1 class="picasso-signature">Pablo Picasso</h1>
     <div class="subtitle">Vida, Cubismo e Genialidade</div>
 
-    <!-- Área do Formulário de Acesso -->
     <div id="login-section">
-      <p>Insira o ano de nascimento do artista para desbloquear o conteudo:</p>
+      <p>Insira o código de acesso para desbloquear o conteúdo:</p>
       
-      <input type="text" id="codigo" placeholder="Digite aqui o código" maxlength="4">
+      <!-- Retirei o maxlength="4" para poderes usar senhas maiores no futuro -->
+      <input type="text" id="codigo" placeholder="Digite aqui o código">
       <br>
-      <button onclick="verificarCodigo()">Desbloquear conteudo</button>
+      <button id="btn-desbloquear" onclick="verificarCodigo()">Desbloquear Conteúdo</button>
       
       <div class="hint">by david</div>
       <div id="erro">Código incorreto. Tente novamente!</div>
 
-      <a class="wiki-link" href="https://pt.wikipedia.org/wiki/Pablo_Picasso" target="_blank" rel="noopener noreferrer">
-        Ver Wikipédia Oficial de Picasso
+      <a class="wiki-link" href="https://pt.wikipedia.org/wiki/Pablo_Picasso" target="_blank">
+        Ver Wikipédia Oficial
       </a>
     </div>
 
-    <!-- Área onde surge a imagem da tabela -->
     <div id="conteudo-section">
-      <h3>Tabela Liberada</h3>
-      <!-- A imagem é chamada aqui -->
-      <img src="tabela.png" alt="Tabela de Picasso" class="imagem-tabela">
+      <h3>Conteúdo Liberado</h3>
+      <img src="tabela.png" alt="Conteúdo de Picasso" class="imagem-tabela">
     </div>
   </div>
 
   <script>
-    function verificarCodigo() {
-      // O código é o ano de nascimento: 1881
-      const codigoCorreto = "1881";
+    const supabaseUrl = 'A_TUA_URL_DO_SUPABASE'; 
+    const supabaseKey = 'A_TUA_CHAVE_ANON_DO_SUPABASE';
+    const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+    async function verificarCodigo() {
       const entrada = document.getElementById("codigo").value.trim();
       const mensagemErro = document.getElementById("erro");
       const loginSection = document.getElementById("login-section");
       const conteudoSection = document.getElementById("conteudo-section");
+      const botao = document.getElementById("btn-desbloquear");
 
-      if (entrada === codigoCorreto) {
-        // Esconde o formulário de login e mostra a imagem
-        loginSection.style.display = "none";
-        conteudoSection.style.display = "block";
-      } else {
-        mensagemErro.style.display = "block";
+      // Ocultar mensagem de erro anterior e bloquear botão
+      mensagemErro.style.display = "none";
+      botao.disabled = true;
+      botao.innerText = "A verificar...";
+
+      try {
+        // 1. Ir buscar o código atual ao Supabase
+        const { data: configData, error: configError } = await supabase
+          .from('configuracoes')
+          .select('valor')
+          .eq('chave', 'codigo_acesso')
+          .single();
+
+        if (configError) throw configError;
+
+        const codigoCorreto = configData.valor;
+        const acertou = (entrada === codigoCorreto);
+
+        // 2. Registar a tentativa
+        await supabase
+          .from('tentativas_acesso')
+          .insert([
+            { 
+              codigo_inserido: entrada, 
+              sucesso: acertou,
+              navegador: navigator.userAgent
+            }
+          ]);
+
+        // 3. Mostrar o resultado
+        if (acertou) {
+          loginSection.style.display = "none";
+          conteudoSection.style.display = "block";
+        } else {
+          mensagemErro.style.display = "block";
+        }
+
+      } catch (error) {
+        console.error("Erro:", error);
+        alert("Ocorreu um erro ao verificar o código. Tenta novamente.");
+      } finally {
+        // Voltar a ativar o botão
+        botao.disabled = false;
+        botao.innerText = "Desbloquear Conteúdo";
       }
     }
   </script>
