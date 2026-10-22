@@ -7,7 +7,7 @@
   
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 
-  <!-- Carregar o Supabase apenas UMA vez -->
+  <!-- Carregar o Supabase JS SDK -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
@@ -23,6 +23,7 @@
     #erro { color: #c0392b; margin-top: 10px; display: none; font-size: 14px; }
     .wiki-link { display: block; margin-top: 20px; color: #0066cc; text-decoration: none; font-size: 14px; }
     #conteudo-section { display: none; margin-top: 25px; }
+    .numeros-coordenadas { font-family: monospace; font-size: 16px; color: #444; margin: 15px 0; letter-spacing: 1px; font-weight: bold; }
     .imagem-tabela { width: 100%; height: auto; border-radius: 8px; border: 2px solid #333; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
   </style>
 </head>
@@ -49,16 +50,19 @@
 
     <div id="conteudo-section">
       <h3>Conteúdo Liberado</h3>
-      <img src="Gemini_Generated_Image_5xjxn65xjxn65xjx (1).jpg" alt="Conteúdo de Picasso" class="imagem-tabela">
+      
+      <!-- Sequência de números adicionada -->
+      <div class="numeros-coordenadas">1,8;4,4;6,10;2,9;6,5;7,5;1,6</div>
+
+      <img src="tabela.png" alt="Conteúdo de Picasso" class="imagem-tabela">
     </div>
   </div>
 
   <script>
-    // Configuração do Supabase
+    // Configuração do Supabase (Coloca aqui as tuas credenciais)
     const SUPABASE_URL = 'https://uionzjxdyxgosvtepcmn.supabase.co'; 
-    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVpb256anhkeXhnb3N2dGVwY21uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI1NzQ0OTksImV4cCI6MjEwODE1MDQ5OX0.GvUGoVlhrFC3hwDBLpVUoWjg62QxRdq8uJnjvSinors';
+    const SUPABASE_KEY = 'A_TUA_CHAVE_ANON_PUBLIC_AQUI';
     
-    // Inicialização da instância do cliente
     const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
     async function verificarCodigo() {
@@ -73,7 +77,6 @@
       botao.innerText = "A verificar...";
 
       try {
-        // Consulta o código de acesso na tabela 'configuracoes'
         const { data: configData, error: configError } = await supabaseClient
           .from('configuracoes')
           .select('valor')
@@ -85,7 +88,6 @@
         const codigoCorreto = configData.valor;
         const acertou = (entrada === codigoCorreto);
 
-        // Regista a tentativa de acesso
         await supabaseClient
           .from('tentativas_acesso')
           .insert([
@@ -105,7 +107,7 @@
 
       } catch (error) {
         console.error("Erro ao verificar o código:", error);
-        alert("Ocorreu um erro ao ligar ao servidor. Verifica a ligação ou as chaves do Supabase.");
+        alert("Ocorreu um erro ao verificar o código. Tenta novamente.");
       } finally {
         botao.disabled = false;
         botao.innerText = "Desbloquear Conteúdo";
