@@ -3,9 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Conteúdo Exclusivo - Pablo Picasso</title>
-  <meta name="google-site-verification" content="7stBaXuUY6crN_tKlcrv1Wou3HBhy4Xx8-pLEAmMyRI" />
   
+  <!-- Verificação do Google Search Console -->
+  <meta name="google-site-verification" content="7stBaXuUY6crN_tKlcrv1Wou3HBhy4Xx8-pLEAmMyRI" />
+
+  <!-- Meta Tags de SEO Geral -->
+  <title>Conteúdo Exclusivo - Pablo Picasso</title>
+  <meta name="description" content="Acede a conteúdo exclusivo sobre a vida, cubismo e obras de Pablo Picasso através de validação por código.">
+  <meta name="keywords" content="Pablo Picasso, Cubismo, Arte, Tabela, Conteúdo Exclusivo, Pintura">
+  <meta name="author" content="David">
+  <meta name="robots" content="index, follow">
+
+  <!-- Meta Tags Open Graph (Facebook / WhatsApp / LinkedIn) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Conteúdo Exclusivo - Pablo Picasso">
+  <meta property="og:description" content="Acede a conteúdo exclusivo sobre a vida, cubismo e obras de Pablo Picasso.">
+  <meta property="og:image" content="tabela.png">
+  <meta property="og:locale" content="pt_PT">
+
+  <!-- Meta Tags Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Conteúdo Exclusivo - Pablo Picasso">
+  <meta name="twitter:description" content="Acede a conteúdo exclusivo sobre Pablo Picasso.">
+  <meta name="twitter:image" content="tabela.png">
+
+  <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 
   <!-- Carregar o Supabase JS SDK -->
@@ -44,7 +66,7 @@
       <div class="hint">by david</div>
       <div id="erro">Código incorreto. Tente novamente!</div>
 
-      <a class="wiki-link" href="https://pt.wikipedia.org/wiki/Pablo_Picasso" target="_blank">
+      <a class="wiki-link" href="https://pt.wikipedia.org/wiki/Pablo_Picasso" target="_blank" rel="noopener">
         Ver Wikipédia Oficial
       </a>
     </div>
@@ -52,7 +74,7 @@
     <div id="conteudo-section">
       <h3>Conteúdo Liberado</h3>
       
-      <!-- Sequência de números adicionada -->
+      <!-- Sequência de números -->
       <div class="numeros-coordenadas">1,8;4,4;6,10;2,9;6,5;7,5;1,6</div>
 
       <img src="tabela.png" alt="Conteúdo de Picasso" class="imagem-tabela">
@@ -60,9 +82,9 @@
   </div>
 
   <script>
-    // Configuração do Supabase (Coloca aqui as tuas credenciais)
+    // Configuração do Supabase
     const SUPABASE_URL = 'https://uionzjxdyxgosvtepcmn.supabase.co'; 
-    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVpb256anhkeXhnb3N2dGVwY21uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI1NzQ0OTksImV4cCI6MjEwODE1MDQ5OX0.GvUGoVlhrFC3hwDBLpVUoWjg62QxRdq8uJnjvSinors';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVpb256anhkeXhnb3N2dGVwY21uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI1NzQ0OTksImV4cCI6MjEwODE1MDQ5OX0.GvUGoVlhrFC3hwDBLpVUoWjg62QxRdq8uJnjvSinors'; // Insere a tua chave anon
     
     const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
