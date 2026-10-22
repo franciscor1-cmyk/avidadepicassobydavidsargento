@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Conteúdo Exclusivo - Pablo Picasso</title>
   
+  <!-- Voltou a usar favicon.ico -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <!-- Carregar a biblioteca do Supabase diretamente no HTML -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
@@ -32,7 +36,6 @@
     <div id="login-section">
       <p>Insira o código de acesso para desbloquear o conteúdo:</p>
       
-      <!-- Retirei o maxlength="4" para poderes usar senhas maiores no futuro -->
       <input type="text" id="codigo" placeholder="Digite aqui o código">
       <br>
       <button id="btn-desbloquear" onclick="verificarCodigo()">Desbloquear Conteúdo</button>
@@ -52,8 +55,8 @@
   </div>
 
   <script>
-    const supabaseUrl = 'A_TUA_URL_DO_SUPABASE'; 
-    const supabaseKey = 'A_TUA_CHAVE_ANON_DO_SUPABASE';
+    const supabaseUrl = 'https://uionzjxdyxgosvtepcmn.supabase.co/rest/v1/'; 
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVpb256anhkeXhnb3N2dGVwY21uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI1NzQ0OTksImV4cCI6MjEwODE1MDQ5OX0.GvUGoVlhrFC3hwDBLpVUoWjg62QxRdq8uJnjvSinors';
     const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
     async function verificarCodigo() {
@@ -63,13 +66,11 @@
       const conteudoSection = document.getElementById("conteudo-section");
       const botao = document.getElementById("btn-desbloquear");
 
-      // Ocultar mensagem de erro anterior e bloquear botão
       mensagemErro.style.display = "none";
       botao.disabled = true;
       botao.innerText = "A verificar...";
 
       try {
-        // 1. Ir buscar o código atual ao Supabase
         const { data: configData, error: configError } = await supabase
           .from('configuracoes')
           .select('valor')
@@ -81,7 +82,6 @@
         const codigoCorreto = configData.valor;
         const acertou = (entrada === codigoCorreto);
 
-        // 2. Registar a tentativa
         await supabase
           .from('tentativas_acesso')
           .insert([
@@ -92,7 +92,6 @@
             }
           ]);
 
-        // 3. Mostrar o resultado
         if (acertou) {
           loginSection.style.display = "none";
           conteudoSection.style.display = "block";
@@ -104,7 +103,6 @@
         console.error("Erro:", error);
         alert("Ocorreu um erro ao verificar o código. Tenta novamente.");
       } finally {
-        // Voltar a ativar o botão
         botao.disabled = false;
         botao.innerText = "Desbloquear Conteúdo";
       }
