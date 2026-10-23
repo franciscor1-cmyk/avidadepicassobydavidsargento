@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Aponta o endereço exato do sitemap aos motores de busca
+Sitemap: https://franciscor1-cmyk.github.io/avidadepicassobydavidsargento/sitemap.xml
