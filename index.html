@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Verificação do Google Search Console -->
+  <meta name="google-site-verification" content="7stBaXuUY6crN_tKlcrv1Wou3HBhy4Xx8-pLEAmMyRI" />
+
+  <!-- Meta Tags de SEO Geral -->
+  <title>Pablo Picasso by David Sargento</title>
+  <meta name="description" content="Acede a conteúdo exclusivo sobre a vida, cubismo e obras de Pablo Picasso através de validação por código.">
+  <meta name="keywords" content="Pablo Picasso, Cubismo, Arte, Tabela, Conteúdo Exclusivo, Pintura">
+  <meta name="author" content="David">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Declaração do Sitemap para motores de busca -->
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="https://franciscor1-cmyk.github.io/avidadepicassobydavidsargento/sitemap.xml">
+  
+  <!-- Meta Tags Open Graph (Facebook / WhatsApp / LinkedIn) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Pablo Picasso by David Sargento">
+  <meta property="og:description" content="Acede a conteúdo exclusivo sobre a vida, cubismo e obras de Pablo Picasso.">
+  <meta property="og:image" content="https://franciscor1-cmyk.github.io/avidadepicassobydavidsargento/cartao.png">
+  <meta property="og:locale" content="pt_PT">
+
+  <!-- Meta Tags Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Pablo Picasso by David Sargento">
+  <meta name="twitter:description" content="Acede a conteúdo exclusivo sobre Pablo Picasso.">
+  <meta name="twitter:image" content="https://franciscor1-cmyk.github.io/avidadepicassobydavidsargento/cartao.png">
+
+  <!-- Favicon e Permissão de Imagem Grande no Google -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <meta name="robots" content="max-image-preview:large">
+  
+  <!-- Carregar o Supabase JS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    body { font-family: 'Georgia', serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; background-color: #1a1a1a; color: #333; }
+    .container { background: #fdfbf7; padding: 30px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.4); text-align: center; max-width: 700px; width: 90%; box-sizing: border-box; }
+    .picasso-signature { font-family: 'Brush Script MT', 'Cursive', sans-serif; font-size: 42px; margin: 0; color: #111; letter-spacing: 2px; }
+    .subtitle { font-size: 14px; color: #666; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; }
+    input { width: 80%; padding: 12px; margin: 15px 0; border: 2px solid #333; border-radius: 6px; text-align: center; font-size: 18px; }
+    button { padding: 12px 25px; background-color: #333; color: #fff; border: none; border-radius: 6px; font-size: 16px; cursor: pointer; transition: background 0.3s; }
+    button:hover { background-color: #555; }
+    button:disabled { background-color: #999; cursor: not-allowed; }
+    .hint { font-size: 13px; color: #777; margin-top: 8px; font-weight: bold; }
+    #erro { color: #c0392b; margin-top: 10px; display: none; font-size: 14px; }
+    .wiki-link { display: block; margin-top: 20px; color: #0066cc; text-decoration: none; font-size: 14px; }
+    #conteudo-section { display: none; margin-top: 25px; }
+    .numeros-coordenadas { font-family: monospace; font-size: 16px; color: #444; margin: 15px 0; letter-spacing: 1px; font-weight: bold; }
+    .imagem-tabela { width: 100%; height: auto; border-radius: 8px; border: 2px solid #333; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1 class="picasso-signature">Pablo Picasso</h1>
+    <div class="subtitle">Vida, Cubismo e Genialidade</div>
+
+    <div id="login-section">
+      <p>Insira o código de acesso para desbloquear o conteúdo:</p>
+      
+      <input type="text" id="codigo" placeholder="Digite aqui o código">
+      <br>
+      <button id="btn-desbloquear" onclick="verificarCodigo()">Desbloquear Conteúdo</button>
+      
+      <div class="hint">by david</div>
+      <div id="erro">Código incorreto. Tente novamente!</div>
+
+      <a class="wiki-link" href="https://pt.wikipedia.org/wiki/Pablo_Picasso" target="_blank" rel="noopener">
+        Ver Wikipédia Oficial
+      </a>
+    </div>
+
+    <!-- Secção de Conteúdo Liberado (Dinâmica por Código) -->
+    <div id="conteudo-section">
+      <h3 id="titulo-conteudo">Conteúdo Liberado</h3>
+      
+      <!-- Sequência de números gregos (Carregada dinamicamente da BD) -->
+      <div id="numeros-coordenadas" class="numeros-coordenadas"></div>
+
+      <!-- Imagem dinâmica do código -->
+      <img id="imagem-conteudo" src="tabela.png" alt="Conteúdo de Picasso" class="imagem-tabela">
+    </div>
+  </div>
+
+  <script>
+    // Configuração do Supabase
+    const SUPABASE_URL = 'https://uionzjxdyxgosvtepcmn.supabase.co'; 
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVpb256anhkeXhnb3N2dGVwY21uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI1NzQ0OTksImV4cCI6MjEwODE1MDQ5OX0.GvUGoVlhrFC3hwDBLpVUoWjg62QxRdq8uJnjvSinors';
+    
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    // Suporte à tecla Enter no Input
+    document.getElementById("codigo").addEventListener("keypress", function(e) {
+      if (e.key === "Enter") {
+        verificarCodigo();
+      }
+    });
+
+    async function verificarCodigo() {
+      const entrada = document.getElementById("codigo").value.trim().toUpperCase();
+      const mensagemErro = document.getElementById("erro");
+      const loginSection = document.getElementById("login-section");
+      const conteudoSection = document.getElementById("conteudo-section");
+      const botao = document.getElementById("btn-desbloquear");
+
+      const tituloEl = document.getElementById("titulo-conteudo");
+      const gregoEl = document.getElementById("numeros-coordenadas");
+      const imagemEl = document.getElementById("imagem-conteudo");
+
+      mensagemErro.style.display = "none";
+
+      if (!entrada) {
+        mensagemErro.style.display = "block";
+        return;
+      }
+
+      botao.disabled = true;
+      botao.innerText = "A verificar...";
+
+      try {
+        // Consulta o código na tabela 'codigos_acesso' no Supabase
+        const { data: registro, error: dbError } = await supabaseClient
+          .from('codigos_acesso')
+          .select('titulo, num_grego, imagem_url')
+          .eq('codigo', entrada)
+          .single();
+
+        // Registar a tentativa de acesso na tabela de logs
+        await supabaseClient
+          .from('tentativas_acesso')
+          .insert([
+            { 
+              codigo_inserido: entrada, 
+              sucesso: !dbError && !!registro,
+              navegador: navigator.userAgent
+            }
+          ]);
+
+        if (!dbError && registro) {
+          // Preenche os dados dinâmicos
+          if (registro.titulo) tituloEl.textContent = registro.titulo;
+          if (registro.num_grego) gregoEl.textContent = registro.num_grego;
+          if (registro.imagem_url) imagemEl.src = registro.imagem_url;
+
+          // Transição de ecrã
+          loginSection.style.display = "none";
+          conteudoSection.style.display = "block";
+        } else {
+          mensagemErro.style.display = "block";
+        }
+
+      } catch (error) {
+        console.error("Erro ao verificar o código:", error);
+        mensagemErro.style.display = "block";
+      } finally {
+        botao.disabled = false;
+        botao.innerText = "Desbloquear Conteúdo";
+      }
+    }
+  </script>
+
+</body>
+</html>
