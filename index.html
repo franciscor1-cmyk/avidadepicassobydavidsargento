@@ -51,7 +51,17 @@
     .wiki-link { display: block; margin-top: 20px; color: #0066cc; text-decoration: none; font-size: 14px; }
     #conteudo-section { display: none; margin-top: 25px; }
     .numeros-coordenadas { font-family: monospace; font-size: 16px; color: #444; margin: 15px 0; letter-spacing: 1px; font-weight: bold; }
-    .imagem-tabela { width: 100%; height: auto; border-radius: 8px; border: 2px solid #333; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+    
+    /* Estilos partilhados para a imagem e para o leitor de vídeo */
+    .imagem-tabela, .video-tabela { 
+      width: 100%; 
+      height: auto; 
+      border-radius: 8px; 
+      border: 2px solid #333; 
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
+      display: none; 
+      margin: 0 auto; 
+    }
   </style>
 </head>
 <body>
@@ -75,15 +85,20 @@
       </a>
     </div>
 
-    <!-- Secção de Conteúdo Liberado (Dinâmica por Código) -->
+    <!-- Secção de Conteúdo Liberado (Com suporte para Imagem e Vídeo) -->
     <div id="conteudo-section">
       <h3 id="titulo-conteudo">Conteúdo Liberado</h3>
       
-      <!-- Sequência de números gregos (Carregada dinamicamente da BD) -->
+      <!-- Sequência de números gregos -->
       <div id="numeros-coordenadas" class="numeros-coordenadas"></div>
 
-      <!-- Imagem dinâmica do código -->
-      <img id="imagem-conteudo" src="tabela.png" alt="Conteúdo de Picasso" class="imagem-tabela">
+      <!-- Elemento de Imagem -->
+      <img id="imagem-conteudo" src="" alt="Conteúdo de Picasso" class="imagem-tabela">
+
+      <!-- Elemento de Vídeo -->
+      <video id="video-conteudo" controls class="video-tabela">
+        O seu navegador não suporta a reprodução deste vídeo.
+      </video>
     </div>
   </div>
 
@@ -111,6 +126,7 @@
       const tituloEl = document.getElementById("titulo-conteudo");
       const gregoEl = document.getElementById("numeros-coordenadas");
       const imagemEl = document.getElementById("imagem-conteudo");
+      const videoEl = document.getElementById("video-conteudo");
 
       mensagemErro.style.display = "none";
 
@@ -142,10 +158,27 @@
           ]);
 
         if (!dbError && registro) {
-          // Preenche os dados dinâmicos
+          // Preenche os textos dinâmicos
           if (registro.titulo) tituloEl.textContent = registro.titulo;
           if (registro.num_grego) gregoEl.textContent = registro.num_grego;
-          if (registro.imagem_url) imagemEl.src = registro.imagem_url;
+
+          const linkMedia = registro.imagem_url || '';
+
+          // Deteção da terminação do ficheiro (.mp4, .webm, .mov, .ogg)
+          const eVideo = linkMedia.match(/\.(mp4|webm|mov|ogg)($|\?)/i);
+
+          if (eVideo) {
+            // Se terminar em formato de vídeo
+            imagemEl.style.display = "none";
+            videoEl.src = linkMedia;
+            videoEl.style.display = "block";
+          } else {
+            // Se for uma imagem
+            videoEl.style.display = "none";
+            videoEl.pause(); // Pausa o vídeo se já estivesse a tocar
+            imagemEl.src = linkMedia;
+            imagemEl.style.display = "block";
+          }
 
           // Transição de ecrã
           loginSection.style.display = "none";
